@@ -1,0 +1,12 @@
+To test flight application login screen.    # features/login.feature
+  Validate login with invalid credential  ...F
+--------------------------------------------------------------------------------
+FAILURE in step 'validate landing page "Find a Flight:Mercury Tours"' (features/login.feature:7):
+Assertion Failed: Expected: Find a Flight:Mercury Tours, Actual: Sign-on: Mercury Tours
+--------------------------------------------------------------------------------
+  Validate with valid credential  ...F
+--------------------------------------------------------------------------------
+FAILURE in step 'validate landing page "Find a Flight:Mercury Tours:"' (features/login.feature:13):
+Assertion Failed: Expected: Find a Flight:Mercury Tours:, Actual: Find a Flight: Mercury Tours:
+--------------------------------------------------------------------------------
+
