@@ -6,17 +6,20 @@ def report_data(sstep, sdescrip, sstatus, stime):
     elif sstatus.lower().strip() == 'failed':
         status_code = '&#10060;'
     else:
-        status_code = sstatus
+        status_code = ''
     if sstep == "Feature":
-        step_code = '#F8F8FF'
+        if sstatus.lower().strip() == 'failed':
+            step_code = '#FA8F78'
+        else:
+            step_code = '#B9EC95'
     elif sstep == "Scenario":
-        step_code = '36B2C1'
+        step_code = '#36B2C1'
     else:
-        step_code = 'B0C4DE'
+        step_code = '#B0C4DE'
     htmltag3 = '<tr style="background-color:' + step_code + ';"><td width="100" style="font-weight:bold">' + sstep
     htmltag3 = htmltag3 + '</td><td width="725" style="font-weight:bold">' + sdescrip
-    htmltag3 = htmltag3 + '</td><td width="75" style="font-weight:bold;">' + status_code
-    htmltag3 = htmltag3 + '</td><td width="100" style="font-weight:bold">' + stime + '</td></tr>'
+    htmltag3 = htmltag3 + '</td><td width="75" align="center" style="font-weight:bold;">' + status_code
+    htmltag3 = htmltag3 + '</td><td width="100" align="center" style="font-weight:bold">' + stime + '</td></tr>'
     return htmltag3
 
 
@@ -24,10 +27,10 @@ def generate_html_report():
 
     html = '<html><body style="background-color:#F8F8FF;font-family:callibri;"><title>Execution Report</title>'
     html = html + '<table width="1000" align="center" border="0" style="table-layout:fixed"><tr style="background-color:B0C4DE;">'
-    html = html + '<td width="100" style="font-weight:bold">Step</td><td width="725" style="font-weight:bold">Description</td>'
-    html = html + '<td width="75" style="font-weight:bold">Status</td><td width="100" style="font-weight:bold;">Time</td></tr>'
+    html = html + '<td width="100" align="center" style="font-weight:bold">Step Details</td><td width="725" align="center" style="font-weight:bold">Step Description</td>'
+    html = html + '<td width="75" align="center" style="font-weight:bold">Status</td><td width="100" align="center" style="font-weight:bold;">Run Time</td></tr>'
     htmltag2 = '</table></body></html>'
-
+    scenario_status = ''
     report_dir = os.getcwd() + "/reports/"
     ff = open(report_dir + 'feature.html', "w")
     f = open(report_dir + 'feature.html', "at")
@@ -48,18 +51,21 @@ def generate_html_report():
                         f.write(report_data("Feature", desc, status, stime))
                     elif "failing step:" in line:
                         scenario_status = 'failed'
-                        scenario_time = line.split('failed in ')
+                        #scenario_time = line.split('failed in ')
                         pass
                     elif "scenario:" in line:
-
                         data_str = line.split('scenario:')
+                        if not scenario_status == 'failed':
+                            scenario_status='passed'
                         f.write(report_data("Scenario", data_str[1], scenario_status, ""))
+                        scenario_status=''
                     elif "given" in line:
 
                         str_given = line.split('...')
                         given_status = str_given[1].split(' in ')
                         f.write(report_data("Step", str_given[0], given_status[0], given_status[1]))
                     elif "when" in line:
+
                         str_when = line.split('...')
                         when_status = str_when[1].split(' in ')
                         f.write(report_data("Step", str_when[0], when_status[0], when_status[1]))
@@ -72,5 +78,5 @@ def generate_html_report():
 
     f.write(htmltag2)
 
-# if __name__ == '__main__':
-#     generateHtmlReport()
+if __name__ == '__main__':
+    generate_html_report()
