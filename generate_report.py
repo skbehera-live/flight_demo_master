@@ -1,5 +1,4 @@
-## Script to generate consolidated Html report from python-behave junit reports
-
+## Script to generate Html report from python-behave junit reports
 __author__ = "Sankar Behera"
 __version__ = "0.0.1"
 
@@ -49,9 +48,9 @@ def report_data(sstep, sdescrip, sstatus, stime):
             status_color = 'black;'
 
     elif sstep == "Scenario":
-        step_code = '#36B2C1'
-    else:
         step_code = '#B0C4DE'
+    else:
+        step_code = '#D3D3D3'
 
     htmltag3 = '<tr style="background-color:' + step_code + ';">' \
                 '<td width="100" style="font-weight:bold">' + sstep +\
@@ -65,7 +64,7 @@ def report_data(sstep, sdescrip, sstatus, stime):
 def generate_html_report():
     html = '<html><body style="font-family:callibri;"><title>Execution Report</title>'\
            '<table width="1000" align="center" border="0" style="table-layout:fixed">' \
-                  '<tr style="background-color:B0C4DE;">' \
+                  '<tr style="background-color:#D3D3D3;">' \
                   '<td width="100" align="center" style="font-weight:bold">Step Details</td>' \
                   '<td width="710" align="center" style="font-weight:bold">Step Description</td>' \
                   '<td width="90" align="center" style="font-weight:bold">Status</td>' \
