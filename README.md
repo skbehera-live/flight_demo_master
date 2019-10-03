@@ -12,10 +12,9 @@ Dependency
 
 - git clone https://github.com/skbehera-live/flight_demo_master.git
 - cd flight_demo_master
-- behave 
-- or
-- python -m behave
+- behave  or python -m behave
 
 # HTML Report
 Consolidated html report (reports/feature.html) will generate along with junit reports.
 
+![Report](/reports/Report.PNG)
