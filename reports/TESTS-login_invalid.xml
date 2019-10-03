@@ -1,16 +1,16 @@
-<testsuite errors="0" failures="1" hostname="SANPC" name="login_invalid.To test flight application login screen with invalid credential" skipped="0" tests="1" time="4.217466" timestamp="2019-09-27T01:28:17.135008"><testcase classname="login_invalid.To test flight application login screen with invalid credential" name="Validate login with invalid credential" status="failed" time="4.217466"><failure message="Expected: Find a Flight:Mercury Tours, Actual: Sign-on: Mercury Tours" type="AssertionError">
+<testsuite errors="0" failures="1" hostname="SANPC" name="login_invalid.To test flight application login screen with invalid credential" skipped="0" tests="1" time="2.909556" timestamp="2019-10-03T11:50:03.508949"><testcase classname="login_invalid.To test flight application login screen with invalid credential" name="Validate login with invalid credential" status="failed" time="2.909556"><failure message="Expected: Find a Flight:Mercury Tours, Actual: Sign-on: Mercury Tours" type="AssertionError">
 <![CDATA[
-Failing step: Then validate landing page "Find a Flight:Mercury Tours" ... failed in 0.015s
+Failing step: Then validate landing page "Find a Flight:Mercury Tours" ... failed in 0.014s
 Location: features/login_invalid.feature:7
 Assertion Failed: Expected: Find a Flight:Mercury Tours, Actual: Sign-on: Mercury Tours]]>
 </failure><system-out>
 <![CDATA[
 @scenario.begin
   Scenario: Validate login with invalid credential
-    Given open the url "http://newtours.demoaut.com/" ... passed in 1.688s
-    Then validate landing page "Welcome: Mercury Tours" ... passed in 0.013s
-    When login with username "mercury" and password "merucry" ... passed in 2.501s
-    Then validate landing page "Find a Flight:Mercury Tours" ... failed in 0.015s
+    Given open the url "http://newtours.demoaut.com/" ... passed in 0.644s
+    Then validate landing page "Welcome: Mercury Tours" ... passed in 0.015s
+    When login with username "mercury" and password "merucry" ... passed in 2.236s
+    Then validate landing page "Find a Flight:Mercury Tours" ... failed in 0.014s
 
 @scenario.end
 --------------------------------------------------------------------------------
