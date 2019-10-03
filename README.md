@@ -8,17 +8,14 @@ Dependency
 - Selenium
 - behave : https://behave.readthedocs.io/en/latest/
 
-###libraries used Selenium TestNG log4j Extent Reports
+# Steps to clone execute the tests
 
-Steps to clone execute the tests
-
-git clone 
+git clone https://github.com/skbehera-live/flight_demo_master.git
 cd flight_demo_master
 behave 
 or
 python -m behave
 
-
-
-Consolidated html report (reports/feature.html) will generate from junit reports.
+# HTML Report
+Consolidated html report (reports/feature.html) will generate along with junit reports.
 
