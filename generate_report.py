@@ -1,18 +1,40 @@
+## Script to generate consolidated Html report from python-behave junit reports
+
+__author__ = "Sankar Behera"
+__version__ = "0.0.1"
+
 import os
 
 """It will generate consolidated html report from junit reports"""
+STATUS_HTML = '<table  width="1000" align="center" border="0" style="table-layout:fixed;font-weight:bold;" > \
+               <tr align="left" style="background-color:B0C4DE;">' \
+              '<td width="250" >Hostname</td>' \
+              '<td width="250" ></td>' \
+              '<td width="250" >Time Stamp</td>' \
+              '<td width="250" ></td>' \
+              '</tr> \
+               <tr align="left" style="background-color:B0C4DE;">' \
+              '<td width="250" >Features</td>' \
+              '<td width="250" ></td>' \
+              '<td width="250" >Execution Time</td>' \
+              '<td width="250" ></td>' \
+              '</tr>' \
+              '</table>'
 
 def report_data(sstep, sdescrip, sstatus, stime):
 
     if sstatus.lower().strip() == 'passed':
-        status_code = '&#10004;'
-        status_color = '"color:green;'
+        # status_code = '&#10004;'
+        status_code = 'pass'
+        status_color = 'green;'
     elif sstatus.lower().strip() == 'failed':
-        status_code = '&#10060;'
-        status_color = '"color:red;'
+        # status_code = '&#10060;'
+        status_code = 'fail'
+        status_color = 'red;'
     elif sstatus.lower().strip() == 'skipped':
-        status_code = '&#128693;skipped'
-        status_color = '"color:blue;'
+        # status_code = '&#128693;skipped'
+        status_code = 'skip'
+        status_color = 'blue;'
     else:
         status_code = ''
 
@@ -20,31 +42,38 @@ def report_data(sstep, sdescrip, sstatus, stime):
         if sstatus.lower().strip() == 'failed':
             step_code = '#FA8F78'
             status_code = sstatus.lower().strip().capitalize()
-            status_color = '"color:black;'
+            status_color = '"black;'
         else:
             step_code = '#B9EC95'
             status_code = sstatus.lower().strip().capitalize()
-            status_color = '"color:black;'
+            status_color = 'black;'
 
     elif sstep == "Scenario":
         step_code = '#36B2C1'
     else:
         step_code = '#B0C4DE'
 
-    htmltag3 = '<tr style="background-color:' + step_code + ';"><td width="100" style="font-weight:bold">' + sstep
-    htmltag3 = htmltag3 + '</td><td width="710" style="font-weight:bold">' + sdescrip
-    htmltag3 = htmltag3 + '</td><td width="90" align="center" style="font-weight:bold;' + status_color + '">' + status_code
-    htmltag3 = htmltag3 + '</td><td width="100" align="center" style="font-weight:bold">' + stime + '</td></tr>'
+    htmltag3 = '<tr style="background-color:' + step_code + ';">' \
+                '<td width="100" style="font-weight:bold">' + sstep +\
+               '</td><td width="710" style="font-weight:bold">' + sdescrip +\
+               '</td><td width="90" align="center" style="font-weight:bold;color:'+ status_color + '">' + status_code +\
+               '</td><td width="100" align="center" style="font-weight:bold">' + stime + '</td>' \
+              '</tr>'
     return htmltag3
 
-
+# background-color:#F8F8FF;
 def generate_html_report():
-    html = '<html><body style="background-color:#F8F8FF;font-family:callibri;"><title>Execution Report</title>'
-    html = html + '<table width="1000" align="center" border="0" style="table-layout:fixed"><tr style="background-color:B0C4DE;">'
-    html = html + '<td width="100" align="center" style="font-weight:bold">Step Details</td><td width="710" align="center" style="font-weight:bold">Step Description</td>'
-    html = html + '<td width="90" align="center" style="font-weight:bold">Status</td><td width="100" align="center" style="font-weight:bold;">Run Time</td></tr>'
+    html = '<html><body style="font-family:callibri;"><title>Execution Report</title>'\
+           '<table width="1000" align="center" border="0" style="table-layout:fixed">' \
+                  '<tr style="background-color:B0C4DE;">' \
+                  '<td width="100" align="center" style="font-weight:bold">Step Details</td>' \
+                  '<td width="710" align="center" style="font-weight:bold">Step Description</td>' \
+                  '<td width="90" align="center" style="font-weight:bold">Status</td>' \
+                  '<td width="100" align="center" style="font-weight:bold;">Run Time</td>' \
+                  '</tr>'
     htmltag2 = '</table></body></html>'
     scenario_status = ''
+    step_counter = int(0)
     report_dir = os.getcwd() + "/reports/"
     open(report_dir + 'feature.html', "w")
     f = open(report_dir + 'feature.html', "at")
@@ -109,7 +138,7 @@ def generate_html_report():
                         f.write(report_data("Step-" + str(step_counter), str_then[0], then_status[0], then_status[1]))
                         pass
 
-                    elif "and" in line:
+                    elif "and" in line.strip():
                         step_counter = int(step_counter) + 1
                         str_and = line.split('...')
                         and_status = str_then[1].split(' in ')
